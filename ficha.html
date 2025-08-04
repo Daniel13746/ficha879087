@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ficha de Personagem - RPG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #ffffffee;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4a148c;
+      margin-bottom: 30px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 20px;
+      display: block;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #fafafa;
+      transition: 0.2s ease-in-out;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #8e24aa;
+      outline: none;
+      background-color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 80px;
+    }
+
+    .atributos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg, #8e24aa, #6a1b9a);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #6a1b9a, #4a148c);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="ficha">
+    <h1>Ficha de Personagem</h1>
+    <form onsubmit="event.preventDefault()">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" />
+
+      <label for="raca">Raça:</label>
+      <input type="text" id="raca" />
+
+      <label for="classe">Classe Política:</label>
+      <select id="classe">
+        <option>Média</option>
+        <option>Alta</option>
+        <option>Baixa</option>
+      </select>
+
+      <label for="descricao">Descrição Física / Aparência:</label>
+      <textarea id="descricao"></textarea>
+
+      <label for="historia">História:</label>
+      <textarea id="historia"></textarea>
+
+      <label for="habilidades">Habilidades Especiais:</label>
+      <textarea id="habilidades"></textarea>
+
+      <label>Atributos:</label>
+      <div class="atributos">
+        <div>
+          <label for="forca">Força</label>
+          <input type="text" id="forca" />
+        </div>
+        <div>
+          <label for="agilidade">Agilidade</label>
+          <input type="text" id="agilidade" />
+        </div>
+        <div>
+          <label for="inteligencia">Inteligência</label>
+          <input type="text" id="inteligencia" />
+        </div>
+        <div>
+          <label for="resistencia">Resistência</label>
+          <input type="text" id="resistencia" />
+        </div>
+        <div>
+          <label for="percepcao">Percepção</label>
+          <input type="text" id="percepcao" />
+        </div>
+        <div>
+          <label for="carisma">Carisma</label>
+          <input type="text" id="carisma" />
+        </div>
+      </div>
+
+      <label for="itens">Itens Carregados:</label>
+      <textarea id="itens"></textarea>
+
+      <label for="aliados">Aliados / Inimigos:</label>
+      <textarea id="aliados"></textarea>
+
+      <div class="buttons">
+        <button type="button" onclick="salvarPDF()">Exportar como PDF</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function salvarPDF() {
+      const ficha = document.getElementById('ficha');
+      html2pdf()
+        .set({
+          margin: 0.5,
+          filename: 'Ficha_de_Personagem.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        })
+        .from(ficha)
+        .save();
+    }
+  </script>
+</body>
+</html>git a
